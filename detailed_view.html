@@ -4,20 +4,26 @@
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/jquery.csv-0.71.min"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="js/jquery.csv-0.71.min.js"></script>
 <script>
      google.load('visualization', '1', {packages: ['corechart', 'line']});
 google.setOnLoadCallback(drawBasic);
 
+//var opts = {sendMethod: 'auto'};
+//var query = new google.visualization.Query('dailyData/deqAirQualityCombined-22.csv', opts);
+
 function drawBasic() {
 
-    $.get("dailyData/deqAirQualityCombined-22.csv", function(csvString) {
-      // transform the CSV string into a 2-dimensional array
-      var arrayData = $.csv.toArrays(csvString);
+          $.get("dailyData/deqAirQualityCombined-28.csv", function(csvString) {
+          //query.setQuery('select C, sum(B) group by C');
 
-            console.log(arrayData[3][4]);
-  
+          // Send the query with a callback function.
+          //query.send(handleQueryResponse);
+           var arrayData = $.csv.toObjects(csvString);
+           console.log(arrayData[3].minute);
+
+
             var data = new google.visualization.DataTable();
 
 
@@ -53,8 +59,8 @@ function drawBasic() {
 
             chart.draw(data, options);
 
-          });
-    }// end basic
+        }, "text");
+    }// end draw
 
 
     </script>
