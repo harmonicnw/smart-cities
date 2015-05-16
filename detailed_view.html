@@ -1,46 +1,68 @@
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-
+    <script type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="js/jquery.csv-0.71.min.js"></script>
+<script>
      google.load('visualization', '1', {packages: ['corechart', 'line']});
 google.setOnLoadCallback(drawBasic);
 
+//var opts = {sendMethod: 'auto'};
+//var query = new google.visualization.Query('dailyData/deqAirQualityCombined-22.csv', opts);
+
 function drawBasic() {
 
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'time');
-      data.addColumn('number', 'NO2');
+          $.get("dailyData/deqAirQualityCombined-28.csv", function(csvString) {
+          //query.setQuery('select C, sum(B) group by C');
 
-      data.addRows([
-        [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
-        [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
-        [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
-        [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
-        [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
-        [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
-        [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
-        [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
-        [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
-        [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
-        [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
-        [66, 70], [67, 72], [68, 75], [69, 80]
-      ]);
+          // Send the query with a callback function.
+          //query.send(handleQueryResponse);
+           var arrayData = $.csv.toObjects(csvString);
+           console.log(arrayData[3].minute);
 
-      var options = {
-        hAxis: {
-          title: 'Time'
-        },
-        vAxis: {
-          title: 'NO2'
-        }
-      };
 
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            var data = new google.visualization.DataTable();
 
-      chart.draw(data, options);
-    }
+
+
+            data.addColumn('number', 'time');
+            data.addColumn('number', 'NO2');
+
+            data.addRows([
+              [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
+              [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
+              [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
+              [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
+              [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
+              [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
+              [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
+              [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
+              [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
+              [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
+              [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
+              [66, 70], [67, 72], [68, 75], [69, 80]
+            ]);
+
+            var options = {
+              hAxis: {
+                title: 'Time'
+              },
+              vAxis: {
+                title: 'NO2'
+              }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+
+        }, "text");
+    }// end draw
+
+
     </script>
   </head>
 
