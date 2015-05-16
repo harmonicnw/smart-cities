@@ -16,7 +16,7 @@ App for reducing air pollution by suggesting optimal times within given neighbor
   * Gage Choat - FHS App Mentor, Web Developer
   * Griffin Drake - Franklin HS Senior
   * Kim Dangg - CS Student
-  * Godfrey Yeung - CS Student at PSU
+  * Godfrey Yeung - CS Student at OSU
   * Moss Drake - Volunteer
   * Kyle Henderson - CS student at U. of Cincinatti
   * Rakshith ... - Intel Developer
