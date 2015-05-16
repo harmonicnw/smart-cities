@@ -15,7 +15,7 @@ google.setOnLoadCallback(drawBasic);
 
 function drawBasic() {
 
-          $.get("dailyData/deqAirQualityCombined-28.csv", function(csvString) {
+          $.get("dailyData/deqAirQualityCombined-27.csv", function(csvString) {
           //query.setQuery('select C, sum(B) group by C');
 
           // Send the query with a callback function.
@@ -46,7 +46,7 @@ function drawBasic() {
 				}
               },
               vAxis: {
-                title: 'NO2'
+                title: 'NO2 (ppm)'
               }
             };
 
