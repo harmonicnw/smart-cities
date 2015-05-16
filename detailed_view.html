@@ -32,13 +32,12 @@ function drawBasic() {
             data.addColumn('number', 'time');
             data.addColumn('number', 'NO2');
 
-
-            data.addRows([
-              [(Number(arrayData[0].hour)*60)+Number(arrayData[0].minute), Number(arrayData[0].nitrogen_oxides)],
-              [(Number(arrayData[1].hour)*60)+Number(arrayData[1].minute), Number(arrayData[1].nitrogen_oxides)],
-              [(Number(arrayData[2].hour)*60)+Number(arrayData[2].minute), Number(arrayData[2].nitrogen_oxides)]
-            ]);
-
+            var i=0;
+            for(i = 0; i<arrayData.length;i++){
+              data.addRows([
+                [(Number(arrayData[i].hour)*60)+Number(arrayData[i].minute), Number(arrayData[i].nitrogen_oxides)]
+              ]);
+            }
             var options = {
               hAxis: {
                 title: 'Time'
