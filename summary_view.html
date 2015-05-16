@@ -11,10 +11,31 @@
   
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="js/jquery.csv-0.71.min.js"></script>
+
     <script type="text/javascript">
 
+      function noTotals(csvPath){
+          var noTotal;
+
+          $.get("dailyData/deqAirQualityCombined-28.csv", function(csvString) {
+
+            var arrayData = $.csv.toObjects(csvString);
+
+            console.log("hi");
+            console.log(arrayData[3][5]);
+
+          }, "text");
+
+
+          return noTotal;
+}
+
+
+
       google.load('visualization', '1', {packages: ['corechart', 'bar']});
-      google.setOnLoadCallback(drawAxisTickColors);
+      google.setOnLoadCallback(drawSummaryView);
 
       columnChart = {
         data: null,
@@ -27,7 +48,10 @@
         chart: null
       };
 
-      function drawAxisTickColors() {
+      function drawSummaryView() {
+
+        noTotals();
+        
         this.columnChart.data = google.visualization.arrayToDataTable([
         ['TimeOfDay', 'Other', 'Morning', 'Evening', { role: 'annotation' } ],
         ['Sunday', 10, 24, 20, ''],
@@ -55,7 +79,8 @@
       function drawLineChart () {
       
         if (this.columnChart.chart.getSelection().length > 0 ) {
-          var selection;
+          var selection = this.columnChart.chart.getSelection();
+          console.log(selection);
           this.lineChart.data = google.visualization.arrayToDataTable([
             ['Year', 'Sales', 'Expenses'],
             ['2004',  1000,      400],
@@ -73,7 +98,6 @@
           this.lineChart.chart = new google.visualization.LineChart(document.getElementById('line_chart'));
           
           if (columnChart.options.height !== 200) {
-            selection = this.columnChart.chart.getSelection();
             this.columnChart.options.height = 200;
             this.columnChart.chart.draw(this.columnChart.data, this.columnChart.options);
             google.visualization.events.addListener(this.columnChart.chart, 'select', this.drawLineChart);
@@ -87,6 +111,10 @@
           }
           this.lineChart.chart.clearChart();
         }
+      }
+
+      function whatDay() {
+
       }
     </script>
   </head>
