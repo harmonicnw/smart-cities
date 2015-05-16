@@ -56,32 +56,16 @@
       }
       
       function drawLineChart () {
-        if (this.columnChart.chart.getSelection().length > 0 ) {
-          var selection = this.columnChart.chart.getSelection();
-          this.getDay(selection);
-          console.log(selection);
+        
+          this.getDay();
           
-          this.lineChart.chart = new google.visualization.LineChart(document.getElementById('line_chart'));
-          
-          if (columnChart.options.height !== 200) {
-            this.columnChart.options.height = 200;
-            this.columnChart.chart.draw(this.columnChart.data, this.columnChart.options);
-            google.visualization.events.addListener(this.columnChart.chart, 'select', this.drawLineChart);
-            this.columnChart.chart.setSelection(selection);
-          }
-          this.lineChart.chart.draw(this.lineChart.data, this.lineChart.options);
-        } else {
-          if (columnChart.options.height !== 400) {
-            this.columnChart.options.height = 400;
-            this.columnChart.chart.draw(this.columnChart.data, this.columnChart.options);
-          }
-          this.lineChart.chart.clearChart();
-        }
       }
       
-      function getDay (selection) {
-        var day = (22 + selection[0].row).toString(),
-        me = this;
+      function getDay () {
+        if (this.columnChart.chart.getSelection().length > 0 ) {
+          var selection = this.columnChart.chart.getSelection(),
+          day = (22 + selection[0].row).toString(),
+          me = this;;
         $.get("dailyData/deqAirQualityCombined-" + day + ".csv", function(csvString) {
           //query.setQuery('select C, sum(B) group by C');
 
@@ -117,7 +101,26 @@
 
             me.lineChart.data = data;
 
-          }, "text");
+            me.lineChart.chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+          
+          if (columnChart.options.height !== 200) {
+            me.columnChart.options.height = 200;
+            me.columnChart.chart.draw(me.columnChart.data, me.columnChart.options);
+            google.visualization.events.addListener(me.columnChart.chart, 'select',   me.drawLineChart);
+            me.columnChart.chart.setSelection(selection);
+          }
+          me.lineChart.chart.draw(me.lineChart.data, me.lineChart.options);
+
+
+      }, "text");
+        } else {
+          if (columnChart.options.height !== 400) {
+            me.columnChart.options.height = 400;
+            me.columnChart.chart.draw(me.columnChart.data, me.columnChart.options);
+          }
+          me.lineChart.chart.clearChart();
+        }
+
       }
     </script>
   </head>
