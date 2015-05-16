@@ -35,12 +35,15 @@ function drawBasic() {
             var i=0;
             for(i = 0; i<arrayData.length;i++){
               data.addRows([
-                [(Number(arrayData[i].hour)*60)+Number(arrayData[i].minute), Number(arrayData[i].nitrogen_oxides)]
+                [(Number(arrayData[i].hour))+((Number(arrayData[i].minute)/60)), Number(arrayData[i].nitrogen_oxides)]
               ]);
             }
             var options = {
               hAxis: {
-                title: 'Time'
+                title: 'Time (hours)',
+				gridlines: {
+					count:12
+				}
               },
               vAxis: {
                 title: 'NO2'
