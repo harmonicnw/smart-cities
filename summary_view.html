@@ -11,7 +11,10 @@
   
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="js/jquery.csv-0.71.min.js"></script>
     <script type="text/javascript">
+
 
       google.load('visualization', '1', {packages: ['corechart', 'bar']});
       google.setOnLoadCallback(drawAxisTickColors);
@@ -58,20 +61,6 @@
           this.getDay(selection);
           console.log(selection);
           
-          this.lineChart.data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales', 'Expenses'],
-            ['2004',  1000,      400],
-            ['2005',  1170,      460],
-            ['2006',  660,       1120],
-            ['2007',  1030,      540]
-          ]),
-          this.lineChart.options = {
-            width: 600,
-            height: 200,
-            title: 'Company Performance',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-          };
           this.lineChart.chart = new google.visualization.LineChart(document.getElementById('line_chart'));
           
           if (columnChart.options.height !== 200) {
@@ -91,7 +80,8 @@
       }
       
       function getDay (selection) {
-        var day = (22 + selection[0].row).toString();
+        var day = (22 + selection[0].row).toString(),
+        me = this;
         $.get("dailyData/deqAirQualityCombined-" + day + ".csv", function(csvString) {
           //query.setQuery('select C, sum(B) group by C');
 
@@ -100,20 +90,23 @@
             var arrayData = $.csv.toObjects(csvString);
           
             console.log(arrayData);
+
+
             var data = new google.visualization.DataTable();
-
-
 
             data.addColumn('number', 'time');
             data.addColumn('number', 'NO2');
 
             var i=0;
+
+
             for(i = 0; i<arrayData.length;i++){
               data.addRows([
                 [(Number(arrayData[i].hour)*60)+Number(arrayData[i].minute), Number(arrayData[i].nitrogen_oxides)]
               ]);
             }
-            var options = {
+
+            me.lineChart.options = {
               hAxis: {
                 title: 'Time'
               },
@@ -122,9 +115,7 @@
               }
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-            chart.draw(data, options);
+            me.lineChart.data = data;
 
           }, "text");
       }
@@ -154,9 +145,13 @@
 	
 
 	</div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- cannot include stupid jquery again!!!!!! wwill overide jquery-csv-->
+    
+    <!--
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    
     <script src="js/bootstrap.min.js"></script>
+
+    -->
   </body>
 </html>
