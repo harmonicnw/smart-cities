@@ -19,8 +19,8 @@ function drawCharts() {
 
     // set column chart options
     this.columnChart.options = {
-        width: 600,
-        height: 400,
+        width: 400,
+        height: 300,
         legend: {
             position: 'top',
             maxLines: 3
@@ -57,17 +57,30 @@ function drawLineChart() {
             var arrayData = $.csv.toObjects(csvString);
             var data = new google.visualization.DataTable();
             data.addColumn('number', 'time');
+            data.addColumn('number', 'NO');
             data.addColumn('number', 'NO2');
+            //data.addColumn('number', 'Carbon Monoxide');
+            data.addColumn('number', 'Sulfer Dioxide');
+            data.addColumn('number', 'Nitric Oxide');
+
             var i = 0;
             for (i = 0; i < arrayData.length; i++) {
                 data.addRows([
-                    [(Number(arrayData[i].hour) * 60) + Number(arrayData[i].minute), Number(arrayData[i].nitrogen_oxides)]
+                    [(Number(arrayData[i].hour) * 60) + Number(arrayData[i].minute),
+                     Number(arrayData[i].nitrogen_oxides),
+                     Number(arrayData[i].nitrogen_dioxide),
+                      //Number(arrayData[i].carbon_monoxide),
+                      Number(arrayData[i].sulfer_dioxide),
+                      Number(arrayData[i].nitric_oxide),
+                    ],
                 ]);
             }
 			me.lineChart.data = data;
             
             // set up chart options
             me.lineChart.options = {
+            	width: 800,
+        		height: 700,
                 hAxis: {
                     title: 'Time'
                 },

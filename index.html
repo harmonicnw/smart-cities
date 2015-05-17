@@ -31,14 +31,15 @@
 				<h1>Your solution to the weekday rush</h1>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-12 col-sm-8 col-md-6">
-				<!--Div that will hold the pie chart-->
-				<div id="chart_div"></div>
-        <div id="line_chart"></div>
-			</div>
-			<div class="col-xs-12 col-sm-4 col-md-6">
+		<div>
 				<p>Each bar represents the total nitrogen dioxide levels (air pollution) for that weekday. Click any day to see a breakdown of the pollution levels from hour to hour. Adjust your work schedule to travel at low-pollution times to reduce intensity.</p>
+		</div>
+		<div class="row">
+			<div style="float: left;">
+				<div id="chart_div" style="display: inline-block;"></div>
+			</div>
+			<div style="float: right;">
+				<div id="line_chart" style="display: inline-block; margin-top: -330px;"></div>
 			</div>
 		</div>
 	</div>
